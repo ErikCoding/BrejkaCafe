@@ -29,7 +29,7 @@ brejka-cafe/
 ├─ index.html                 ← strona główna
 ├─ admin.html                 ← ukryty panel administratora
 ├─ css/
-│  ├─ style.css                ← style strony głównej + oba motywy
+│  ├─ style.css                ← style strony głównej
 │  └─ admin.css                ← style panelu admina
 ├─ js/
 │  ├─ data.js                  ← treść strony + warstwa zapisu (localStorage / Firebase)
@@ -67,18 +67,10 @@ dokładnie na kawiarnię:
 4. Jako `cafe.mapLinkUrl` wklej zwykły link „Udostępnij” (do otwierania
    mapy w nowej karcie).
 
-## Dwa motywy
+## Wygląd strony
 
-Strona ma dwa gotowe motywy graficzne, przełączane przełącznikiem w prawym
-górnym rogu nawigacji (zapamiętywane w przeglądarce użytkownika):
-
-- **Elegancki** (domyślny) — czarne tło, złoto i głęboka zieleń, nawiązujące
-  wprost do wnętrza kawiarni (lampy, fotele).
-- **Boho** — czarne tło, terakota i szałwiowa zieleń, cieplejszy,
-  bardziej organiczny klimat.
-
-Kolory obu motywów można dostroić w `css/style.css` w sekcjach `:root` oraz
-`[data-theme="boho"]`.
+Czarne tło, złoto i głęboka zieleń, nawiązujące wprost do wnętrza kawiarni
+(lampy, fotele). Kolory można dostroić w `css/style.css` w sekcji `:root`.
 
 ## Panel administratora
 

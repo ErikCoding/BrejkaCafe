@@ -27,19 +27,10 @@ const adminApp = document.getElementById("adminApp");
 const emailInput = document.getElementById("emailInput");
 const passwordInput = document.getElementById("passwordInput");
 const loginError = document.getElementById("loginError");
-const loginHint = document.getElementById("loginHint");
 
 if (USE_FIREBASE_AUTH) {
   emailInput.style.display = "";
   emailInput.required = true;
-  loginHint.innerHTML =
-    "Logowanie przez Firebase Authentication — użyj konta utworzonego " +
-    "w Firebase Console → Authentication → Users.";
-} else {
-  loginHint.innerHTML =
-    "Domyślne hasło demo: <code>brejka2026</code><br />" +
-    "(zmień je w pliku <code>js/admin.js</code> — stała <code>ADMIN_PASSWORD</code>).<br />" +
-    "Panel nie jest jeszcze podpięty pod Firebase Authentication — patrz README.md.";
 }
 
 function showApp() {

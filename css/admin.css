@@ -58,8 +58,7 @@ body.admin-body {
   box-shadow: var(--shadow);
 }
 .login-card img { height: 60px; width: 60px; border-radius: 50%; margin: 0 auto 18px; }
-.login-card h1 { font-size: 1.4rem; margin-bottom: 6px; }
-.login-card p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 26px; }
+.login-card h1 { font-size: 1.4rem; margin-bottom: 26px; }
 .login-card input {
   width: 100%;
   padding: 13px 16px;
@@ -74,13 +73,6 @@ body.admin-body {
 .login-card input:focus { outline: none; border-color: var(--accent); }
 .login-card .btn { width: 100%; justify-content: center; }
 .login-error { color: #e08a8a; font-size: 0.82rem; margin-top: 12px; min-height: 18px; }
-.login-hint {
-  margin-top: 22px;
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  opacity: 0.7;
-  line-height: 1.6;
-}
 
 /* ---- Tabs ---- */
 .admin-tabs {
@@ -282,25 +274,44 @@ body.admin-body {
     padding: 16px 0;
   }
   .admin-item-row img.thumb { grid-area: thumb; }
-  .admin-item-row .field-name { grid-area: name; }
-  .admin-item-row .field-desc { grid-area: desc; }
-  .admin-item-row .field-price { grid-area: price; }
+  .admin-item-row .field-name { grid-area: name; min-width: 0; }
+  .admin-item-row .field-desc { grid-area: desc; min-width: 0; }
+  .admin-item-row .field-price { grid-area: price; min-width: 0; }
   .admin-item-row .row-actions { grid-area: actions; justify-self: end; align-self: end; }
 
   .hours-editor-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
       "day    day"
       "open   close"
       "closed closed";
     row-gap: 10px;
+    column-gap: 12px;
+    padding: 14px 0;
   }
   .hours-editor-row .hours-day { grid-area: day; font-weight: 500; }
-  .hours-editor-row input[data-field="open"] { grid-area: open; }
-  .hours-editor-row input[data-field="close"] { grid-area: close; }
+  /* Native <input type="time"> has a built-in intrinsic minimum
+     width in most mobile browsers (Safari especially) — without
+     min-width: 0 that can force these grid tracks wider than their
+     1fr share and throw the two-column layout off on narrow phones. */
+  .hours-editor-row input[data-field="open"] {
+    grid-area: open;
+    min-width: 0;
+  }
+  .hours-editor-row input[data-field="close"] {
+    grid-area: close;
+    min-width: 0;
+  }
   .hours-editor-row .checkbox-line { grid-area: closed; }
 
   .cat-block { padding: 18px; }
+}
+
+@media (max-width: 420px) {
+  .hours-editor-row input[type="time"] {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 480px) {

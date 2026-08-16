@@ -1,32 +1,13 @@
 /* Brëjka Café — front-end rendering & interactions
    ------------------------------------------------------------
-   Structural stuff (theme toggle, nav, scroll-reveal, scroll-spy)
-   is wired up immediately and does NOT depend on `data`, so the page
-   never gets stuck fully invisible just because a data source (e.g.
-   Firestore, if it isn't fully set up yet) fails to load. Everything
-   that actually needs `data` (about text, menu, hours, map, gallery,
+   Structural stuff (nav, scroll-reveal, scroll-spy) is wired up
+   immediately and does NOT depend on `data`, so the page never gets
+   stuck fully invisible just because a data source (e.g. Firestore,
+   if it isn't fully set up yet) fails to load. Everything that
+   actually needs `data` (about text, menu, hours, map, gallery,
    social links, footer) is rendered afterwards, each section wrapped
    so one bad field can't take the rest of the page down with it.
    ------------------------------------------------------------ */
-
-/* ---------- Theme ----------
-   Two copies of the toggle exist in the markup (top bar for desktop,
-   inside the mobile dropdown) so both need to stay in sync — select
-   by class, not the desktop-only #themeToggle id. */
-const THEME_KEY = "brejka_theme";
-const savedTheme = localStorage.getItem(THEME_KEY) || "elegancki";
-document.body.setAttribute("data-theme", savedTheme);
-document.querySelectorAll(".theme-toggle button").forEach((btn) => {
-  btn.classList.toggle("active", btn.dataset.theme === savedTheme);
-  btn.addEventListener("click", () => {
-    const t = btn.dataset.theme;
-    document.body.setAttribute("data-theme", t);
-    localStorage.setItem(THEME_KEY, t);
-    document.querySelectorAll(".theme-toggle button").forEach((b) =>
-      b.classList.toggle("active", b.dataset.theme === t)
-    );
-  });
-});
 
 /* ---------- Navbar scroll state + mobile toggle ----------
    Set the initial state immediately (not just inside the scroll
