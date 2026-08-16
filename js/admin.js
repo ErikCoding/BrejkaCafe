@@ -166,15 +166,15 @@ function renderItems(ci) {
       return `
       <div class="admin-item-row" data-ci="${ci}" data-ii="${ii}">
         <img class="thumb" src="${thumb}" data-action="pick-image" data-ci="${ci}" data-ii="${ii}" title="Kliknij, aby zmienić zdjęcie" />
-        <div>
+        <div class="field-name">
           <span class="field-label">Nazwa</span>
           <input type="text" value="${escapeAttr(item.name)}" data-field="name" data-ci="${ci}" data-ii="${ii}" />
         </div>
-        <div>
+        <div class="field-desc">
           <span class="field-label">Opis</span>
           <input type="text" value="${escapeAttr(item.desc)}" data-field="desc" data-ci="${ci}" data-ii="${ii}" />
         </div>
-        <div>
+        <div class="field-price">
           <span class="field-label">Cena</span>
           <input type="text" value="${escapeAttr(item.price)}" data-field="price" data-ci="${ci}" data-ii="${ii}" />
         </div>
@@ -281,7 +281,7 @@ function renderHours() {
     .map(
       (h, i) => `
       <div class="hours-editor-row" data-i="${i}">
-        <div>${escapeAttr(h.day)}</div>
+        <div class="hours-day">${escapeAttr(h.day)}</div>
         <input type="time" value="${h.open}" data-field="open" data-i="${i}" ${h.closed ? "disabled" : ""} />
         <input type="time" value="${h.close}" data-field="close" data-i="${i}" ${h.closed ? "disabled" : ""} />
         <label class="checkbox-line">

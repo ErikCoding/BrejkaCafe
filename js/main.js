@@ -9,27 +9,37 @@
    so one bad field can't take the rest of the page down with it.
    ------------------------------------------------------------ */
 
-/* ---------- Theme ---------- */
+/* ---------- Theme ----------
+   Two copies of the toggle exist in the markup (top bar for desktop,
+   inside the mobile dropdown) so both need to stay in sync — select
+   by class, not the desktop-only #themeToggle id. */
 const THEME_KEY = "brejka_theme";
 const savedTheme = localStorage.getItem(THEME_KEY) || "elegancki";
 document.body.setAttribute("data-theme", savedTheme);
-document.querySelectorAll("#themeToggle button").forEach((btn) => {
+document.querySelectorAll(".theme-toggle button").forEach((btn) => {
   btn.classList.toggle("active", btn.dataset.theme === savedTheme);
   btn.addEventListener("click", () => {
     const t = btn.dataset.theme;
     document.body.setAttribute("data-theme", t);
     localStorage.setItem(THEME_KEY, t);
-    document.querySelectorAll("#themeToggle button").forEach((b) =>
-      b.classList.toggle("active", b === btn)
+    document.querySelectorAll(".theme-toggle button").forEach((b) =>
+      b.classList.toggle("active", b.dataset.theme === t)
     );
   });
 });
 
-/* ---------- Navbar scroll state + mobile toggle ---------- */
+/* ---------- Navbar scroll state + mobile toggle ----------
+   Set the initial state immediately (not just inside the scroll
+   listener) — otherwise a page that loads already scrolled (e.g. a
+   mobile browser restoring scroll position, or a deep link to a
+   section) shows the wrong navbar style until the next scroll event,
+   which reads as the nav "glitching" before it settles. */
 const navbar = document.getElementById("navbar");
-window.addEventListener("scroll", () => {
+function updateNavbarScrollState() {
   navbar.classList.toggle("scrolled", window.scrollY > 40);
-});
+}
+updateNavbarScrollState();
+window.addEventListener("scroll", updateNavbarScrollState);
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
 navToggle.addEventListener("click", () => navLinks.classList.toggle("open"));
@@ -80,9 +90,11 @@ const spyObserver = new IntersectionObserver(
 );
 spySections.forEach((el) => spyObserver.observe(el));
 
-window.addEventListener("scroll", () => {
+function clearActiveLinkNearTop() {
   if (window.scrollY < 120) spyLinks.forEach((a) => a.classList.remove("active"));
-});
+}
+clearActiveLinkNearTop();
+window.addEventListener("scroll", clearActiveLinkNearTop);
 
 function escapeHtml(str) {
   const d = document.createElement("div");

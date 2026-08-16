@@ -290,6 +290,11 @@ body::before {
 
 .nav-actions { display: flex; align-items: center; gap: 14px; }
 
+/* The in-dropdown copy of the theme toggle only exists for mobile
+   (see the ≤760px block below) — hidden by default so desktop still
+   shows just the single toggle in the top bar. */
+.nav-links-theme { display: none; }
+
 .theme-toggle {
   display: flex;
   border: 1px solid var(--border);
@@ -841,4 +846,95 @@ footer {
   .nav-toggle { display: flex; }
   .section { padding: 76px 0; }
   .stat-row { gap: 24px; }
+
+  /* The top-bar theme toggle + brand name + hamburger no longer fit
+     comfortably side by side on small screens — move the toggle into
+     the dropdown menu instead of squeezing everything into one row. */
+  .nav-actions .theme-toggle { display: none; }
+  .nav-links-theme {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .nav-links-theme .theme-toggle {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+  .nav-links-theme .theme-toggle button {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px;
+    border: 1px solid var(--border);
+  }
+  .nav-links-theme .theme-toggle button.active {
+    border-color: var(--accent);
+  }
+  .brand-name {
+    font-size: 1.02rem;
+    white-space: nowrap;
+  }
+}
+
+/* ==========================================================
+   Boho — hero photo dimming (much lighter than "elegancki") and
+   extra color variety using the sage secondary accent, which was
+   previously defined but never actually used anywhere.
+   ========================================================== */
+
+/* The hero scrim/gradient tints the photo toward --bg so text stays
+   readable — on the dark "elegancki" theme that reads as a smoky
+   darkening; on boho it's a light cream wash. Cut the wash way down
+   here so more of the real photo shows through, and lean on a soft
+   text-shadow instead to keep the (dark) boho hero text readable. */
+[data-theme="boho"] .hero-scrim {
+  background: linear-gradient(100deg, rgba(var(--bg-rgb), 0.4) 0%, rgba(var(--bg-rgb), 0.22) 30%, rgba(var(--bg-rgb), 0.08) 55%, rgba(var(--bg-rgb), 0.02) 74%, transparent 88%);
+}
+[data-theme="boho"] .hero-bg::after {
+  background: linear-gradient(180deg, rgba(var(--bg-rgb), 0.04) 0%, rgba(var(--bg-rgb), 0.08) 55%, rgba(var(--bg-rgb), 0.4) 100%);
+}
+[data-theme="boho"] .hero-content .eyebrow,
+[data-theme="boho"] .hero-content h1,
+[data-theme="boho"] .hero-content p {
+  text-shadow: 0 2px 20px rgba(255, 252, 245, 0.85), 0 1px 6px rgba(255, 252, 245, 0.7);
+}
+/* With most of the wash gone, the (deliberately muted) paragraph
+   color can lose contrast against lighter parts of the photo — use
+   the full-strength text color here instead, just in the hero. */
+[data-theme="boho"] .hero-content p {
+  color: var(--text);
+}
+[data-theme="boho"] .hero-cta .btn-outline {
+  background: rgba(var(--bg-rgb), 0.55);
+  border-color: var(--text);
+}
+
+/* Put the sage secondary accent to work in a few places, alternating
+   with the terracotta primary accent for a bit more color variety. */
+[data-theme="boho"] .stat-row .stat:nth-child(2) b { color: var(--accent-2); }
+[data-theme="boho"] #kawa .eyebrow,
+[data-theme="boho"] #galeria .eyebrow {
+  color: var(--accent-2);
+}
+[data-theme="boho"] #kawa .eyebrow::before,
+[data-theme="boho"] #galeria .eyebrow::before {
+  background: var(--accent-2);
+}
+[data-theme="boho"] .roast-note { border-left-color: var(--accent-2); }
+[data-theme="boho"] .menu-tab:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+[data-theme="boho"] .gallery-item:hover {
+  box-shadow: 0 0 0 2px var(--accent-2);
+}
+[data-theme="boho"] .social-links a:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+[data-theme="boho"] .theme-toggle button[data-theme="boho"].active {
+  background: var(--accent-2);
 }

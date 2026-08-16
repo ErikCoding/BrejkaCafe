@@ -255,3 +255,57 @@ body.admin-body {
   margin-bottom: 26px;
 }
 .info-box strong { color: var(--text); }
+
+/* ---------- Responsive (mobile) ----------
+   The item/hours rows below use fixed-width grid columns tuned for
+   desktop; on narrow screens they need to reflow into stacked rows
+   instead of squeezing 4-5 columns into one line. */
+@media (max-width: 760px) {
+  .admin-topbar .container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .admin-topbar .brand {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+  .admin-badge { margin-left: 0; }
+  .admin-main { padding: 32px 0 90px; }
+
+  .admin-item-row {
+    grid-template-columns: 52px 1fr auto;
+    grid-template-areas:
+      "thumb name name"
+      "desc  desc  desc"
+      "price price actions";
+    row-gap: 10px;
+    padding: 16px 0;
+  }
+  .admin-item-row img.thumb { grid-area: thumb; }
+  .admin-item-row .field-name { grid-area: name; }
+  .admin-item-row .field-desc { grid-area: desc; }
+  .admin-item-row .field-price { grid-area: price; }
+  .admin-item-row .row-actions { grid-area: actions; justify-self: end; align-self: end; }
+
+  .hours-editor-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "day    day"
+      "open   close"
+      "closed closed";
+    row-gap: 10px;
+  }
+  .hours-editor-row .hours-day { grid-area: day; font-weight: 500; }
+  .hours-editor-row input[data-field="open"] { grid-area: open; }
+  .hours-editor-row input[data-field="close"] { grid-area: close; }
+  .hours-editor-row .checkbox-line { grid-area: closed; }
+
+  .cat-block { padding: 18px; }
+}
+
+@media (max-width: 480px) {
+  .save-bar { flex-direction: column-reverse; }
+  .save-bar .btn { width: 100%; justify-content: center; }
+  .login-card { padding: 32px 22px; }
+  .admin-topbar .brand-name { font-size: 0.95rem; }
+}
