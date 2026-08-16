@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<title>Brëjka Café — jednorazowa naprawa danych w Firestore</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 640px; margin: 60px auto; padding: 0 20px; background: #111; color: #eee; line-height: 1.5; }
+  h1 { font-size: 1.3rem; }
+  #status { padding: 16px; border-radius: 8px; margin-top: 20px; white-space: pre-wrap; font-family: monospace; font-size: 0.9rem; }
+  .pending { background: #333; }
+  .ok { background: #1f4d2e; }
+  .fail { background: #4d1f1f; }
+  code { background: #222; padding: 2px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>🔧 Brëjka Café — jednorazowa naprawa danych (Firestore)</h1>
+  <p>
+    Ta strona <strong>nadpisuje cały dokument <code>cafes/brejka</code></strong>
+    w Firestore aktualnymi danymi domyślnymi z <code>js/data.js</code>
+    (poprawne linki social media, poprawna mapka, itd.).
+  </p>
+  <p>
+    ⚠️ Jeśli w panelu administratora zapisywałeś już realne zmiany w menu
+    lub godzinach otwarcia (nie tylko testowo), <strong>ta operacja je nadpisze</strong>
+    wartościami z kodu. W tym projekcie na razie tak nie było, ale sprawdź,
+    zanim klikniesz.
+  </p>
+  <p>Po jednorazowym użyciu <strong>usuń ten plik</strong> z folderu projektu — nie jest
+  linkowany z żadnej strony i nie powinien zostać na produkcji.</p>
+
+  <button id="go" style="padding:10px 18px; font-size:1rem; cursor:pointer;">
+    Nadpisz Firestore aktualnymi danymi
+  </button>
+
+  <div id="status" class="pending">Czekam na kliknięcie...</div>
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    const statusEl = document.getElementById("status");
+    document.getElementById("go").addEventListener("click", async () => {
+      statusEl.className = "pending";
+      statusEl.textContent = "Łączę z Firestore i zapisuję...";
+      try {
+        if (typeof firebase === "undefined") throw new Error("SDK Firebase się nie załadowało (sprawdź internet).");
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        await db.doc("cafes/brejka").set(DEFAULT_DATA);
+        statusEl.className = "ok";
+        statusEl.textContent =
+          "✅ Gotowe! Dokument cafes/brejka w Firestore został nadpisany " +
+          "aktualnymi danymi z kodu (poprawne social media, mapka, itd.).\n\n" +
+          "Teraz odśwież stronę główną (index.html) — linki i mapka powinny " +
+          "już działać poprawnie.\n\n" +
+          "Pamiętaj, żeby usunąć ten plik (reseed-firebase.html) z projektu.";
+      } catch (err) {
+        statusEl.className = "fail";
+        statusEl.textContent =
+          "❌ Nie udało się zapisać: " + (err && err.message ? err.message : err) +
+          "\n\nNajczęstsza przyczyna: reguły Firestore już wymagają " +
+          "zalogowanego administratora (request.auth != null), więc zapis " +
+          "bez logowania jest odrzucany — to dobry znak, oznacza że reguły " +
+          "bezpieczeństwa działają.\n\n" +
+          "W takim wypadku zaloguj się normalnie do /admin.html (kontem " +
+          "utworzonym w Firebase Console → Authentication → Users) i kliknij " +
+          "tam przycisk „Przywróć dane domyślne” — to zrobi dokładnie to samo, " +
+          "ale jako zalogowany administrator.";
+      }
+    });
+  </script>
+</body>
+</html>

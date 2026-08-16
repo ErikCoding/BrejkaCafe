@@ -1,0 +1,33 @@
+rules_version = '2';
+
+/**
+ * Storage rules for Brëjka Café.
+ *
+ * Menu item photos uploaded from the admin panel get stored under
+ * menu-images/ (see js/firebase-sync.example.js — uploadImageIfNeeded).
+ *
+ * Policy:
+ *   - Anyone can READ images (they're shown on the public site).
+ *   - Only the café's admin account can WRITE / delete them.
+ *   - Uploads are capped at 8MB and must be an image file, so the
+ *     admin panel can't be used to dump arbitrary/huge files into
+ *     the bucket even by accident.
+ *
+ * Replace REPLACE_WITH_ADMIN_UID with the same admin UID used in
+ * firestore.rules (Firebase Console → Authentication → Users).
+ */
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /menu-images/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null
+                    && request.auth.uid == "REPLACE_WITH_ADMIN_UID"
+                    && request.resource.size < 8 * 1024 * 1024
+                    && request.resource.contentType.matches("image/.*");
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

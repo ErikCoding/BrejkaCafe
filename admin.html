@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Panel administratora — Brëjka Café</title>
+<link rel="icon" href="assets/img/logo-256.jpg" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/admin.css" />
+</head>
+<body data-theme="elegancki" class="admin-body">
+
+  <!-- ============ LOGIN ============ -->
+  <div class="login-wrap" id="loginWrap">
+    <div class="login-card">
+      <img src="assets/img/logo.jpg" alt="Brëjka Café" />
+      <h1>Panel administratora</h1>
+      <p>Ta strona nie jest linkowana z witryny — dostęp mają tylko osoby, które znają jej adres i dane logowania.</p>
+      <form id="loginForm">
+        <input type="email" id="emailInput" placeholder="E-mail" autocomplete="username" class="firebase-only" style="display:none;" />
+        <input type="password" id="passwordInput" placeholder="Hasło" autocomplete="current-password" />
+        <button class="btn" type="submit">Zaloguj</button>
+      </form>
+      <div class="login-error" id="loginError"></div>
+      <div class="login-hint" id="loginHint">Ładowanie…</div>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN APP ============ -->
+  <div id="adminApp" style="display:none;">
+    <div class="admin-topbar">
+      <div class="container">
+        <div class="brand">
+          <img src="assets/img/logo.jpg" alt="Brëjka Café" />
+          <span class="brand-name">Brëjka Café</span>
+          <span class="admin-badge">Panel administratora</span>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <a href="index.html" class="btn btn-outline btn-sm" target="_blank">Zobacz stronę ↗</a>
+          <button class="btn btn-outline btn-sm" id="logoutBtn">Wyloguj</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="admin-main">
+      <div class="container">
+
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-panel="panelMenu">🍮 Menu</button>
+          <button class="admin-tab" data-panel="panelHours">🕐 Godziny otwarcia</button>
+        </div>
+
+        <!-- ===== MENU PANEL ===== -->
+        <section class="admin-panel active" id="panelMenu">
+          <div class="panel-header">
+            <h2>Pozycje menu</h2>
+            <button class="btn btn-sm" id="addCategoryBtn">+ Nowa kategoria</button>
+          </div>
+          <div id="categoriesWrap"></div>
+          <div class="save-bar">
+            <button class="btn btn-outline" id="revertMenuBtn">Cofnij zmiany</button>
+            <button class="btn" id="saveMenuBtn">Zapisz zmiany</button>
+          </div>
+        </section>
+
+        <!-- ===== HOURS PANEL ===== -->
+        <section class="admin-panel" id="panelHours">
+          <div class="panel-header">
+            <h2>Godziny otwarcia</h2>
+          </div>
+          <div class="cat-block">
+            <div id="hoursWrap"></div>
+          </div>
+          <div class="save-bar">
+            <button class="btn btn-outline" id="revertHoursBtn">Cofnij zmiany</button>
+            <button class="btn" id="saveHoursBtn">Zapisz zmiany</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <input type="file" accept="image/*" class="hidden-file-input" id="imageFileInput" />
+
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/firebase-sync.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
