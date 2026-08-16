@@ -273,8 +273,14 @@ function renderHours() {
       (h, i) => `
       <div class="hours-editor-row" data-i="${i}">
         <div class="hours-day">${escapeAttr(h.day)}</div>
-        <input type="time" value="${h.open}" data-field="open" data-i="${i}" ${h.closed ? "disabled" : ""} />
-        <input type="time" value="${h.close}" data-field="close" data-i="${i}" ${h.closed ? "disabled" : ""} />
+        <div class="hours-field hours-field-open">
+          <span class="field-label">Od</span>
+          <input type="time" value="${h.open}" data-field="open" data-i="${i}" ${h.closed ? "disabled" : ""} />
+        </div>
+        <div class="hours-field hours-field-close">
+          <span class="field-label">Do</span>
+          <input type="time" value="${h.close}" data-field="close" data-i="${i}" ${h.closed ? "disabled" : ""} />
+        </div>
         <label class="checkbox-line">
           <input type="checkbox" data-field="closed" data-i="${i}" ${h.closed ? "checked" : ""} />
           Nieczynne

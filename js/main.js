@@ -28,6 +28,41 @@ navLinks.querySelectorAll("a").forEach((a) =>
   a.addEventListener("click", () => navLinks.classList.remove("open"))
 );
 
+/* ---------- Mobile hero parallax ----------
+   Desktop gets the "stays in place" effect for free via CSS
+   `background-attachment: fixed` — cheap and perfectly smooth, but
+   unreliable/janky on many phone browsers (Safari especially), which
+   is why it's switched off for touch/narrow screens in style.css.
+   This replaces it there with a lightweight JS-driven parallax: the
+   image moves at a fraction of scroll speed instead of staying
+   fully still, which gives the same sense of depth on scroll while
+   staying smooth on real phones (a plain scroll-linked transform,
+   GPU-composited, no jank). */
+const heroBg = document.querySelector(".hero-bg");
+if (heroBg) {
+  const heroParallaxMQ = window.matchMedia("(max-width: 900px), (hover: none)");
+  let ticking = false;
+  function applyHeroParallax() {
+    ticking = false;
+    if (!heroParallaxMQ.matches) {
+      heroBg.style.transform = "";
+      return;
+    }
+    heroBg.style.transform = `translate3d(0, ${window.scrollY * 0.35}px, 0)`;
+  }
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(applyHeroParallax);
+      }
+    },
+    { passive: true }
+  );
+  applyHeroParallax();
+}
+
 /* ---------- Hidden admin link ----------
    The panel is intentionally not linked from the nav. A tiny, barely
    visible "·" next to the footer copyright links straight to

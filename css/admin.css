@@ -178,10 +178,16 @@ body.admin-body {
   grid-template-columns: 130px 1fr 1fr 110px;
   gap: 14px;
   align-items: center;
-  padding: 12px 0;
+  padding: 14px 0;
   border-bottom: 1px dashed var(--border);
 }
 .hours-editor-row:last-child { border-bottom: none; }
+.hours-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
 .hours-editor-row input[type="time"] {
   background: var(--bg);
   border: 1px solid var(--border);
@@ -189,6 +195,7 @@ body.admin-body {
   border-radius: 8px;
   padding: 8px 10px;
   width: 100%;
+  min-width: 0;
   font-family: var(--sans);
 }
 .checkbox-line {
@@ -285,23 +292,18 @@ body.admin-body {
       "day    day"
       "open   close"
       "closed closed";
-    row-gap: 10px;
-    column-gap: 12px;
-    padding: 14px 0;
+    row-gap: 12px;
+    column-gap: 14px;
+    padding: 16px 0;
   }
   .hours-editor-row .hours-day { grid-area: day; font-weight: 500; }
   /* Native <input type="time"> has a built-in intrinsic minimum
      width in most mobile browsers (Safari especially) — without
-     min-width: 0 that can force these grid tracks wider than their
-     1fr share and throw the two-column layout off on narrow phones. */
-  .hours-editor-row input[data-field="open"] {
-    grid-area: open;
-    min-width: 0;
-  }
-  .hours-editor-row input[data-field="close"] {
-    grid-area: close;
-    min-width: 0;
-  }
+     min-width: 0 (on both the field wrapper AND the input itself)
+     that can force these grid tracks wider than their 1fr share and
+     push the whole field off toward the right edge on narrow phones. */
+  .hours-editor-row .hours-field-open { grid-area: open; }
+  .hours-editor-row .hours-field-close { grid-area: close; }
   .hours-editor-row .checkbox-line { grid-area: closed; }
 
   .cat-block { padding: 18px; }

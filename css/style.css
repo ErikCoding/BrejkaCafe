@@ -263,10 +263,13 @@ body::before {
   background-attachment: fixed;
 }
 @media (max-width: 900px), (hover: none) {
-  /* Fixed backgrounds jitter / hurt scroll performance on most
-     touch devices — fall back to a normal scrolling image there. */
+  /* Fixed backgrounds jitter / hurt scroll performance on most touch
+     devices — fall back to a normal (non-fixed) background here, and
+     main.js applies an equivalent scroll-linked parallax via
+     transform instead, which stays smooth on phones. */
   .hero-bg {
     background-attachment: scroll;
+    will-change: transform;
   }
 }
 .hero-bg::after {
@@ -756,11 +759,10 @@ footer {
 
   /* The active-section link uses a bold accent color + full-width
      underline on desktop, which reads as too strong/loud inside the
-     small dropdown menu on mobile — tone it down to a soft
-     background tint instead of a bright color change. */
+     small dropdown menu on mobile — just a subtle brightening of the
+     text itself, no background box, no underline. */
   .nav-links a.active {
-    color: var(--text);
-    background: var(--accent-soft);
+    color: #fff;
   }
   .nav-links a.active::after {
     width: 0;
