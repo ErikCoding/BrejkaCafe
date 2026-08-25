@@ -182,13 +182,13 @@ body::before {
   user-select: none;
 }
 .brand img {
-  height: 42px;
-  width: 42px;
+  height: 52px;
+  width: 52px;
   border-radius: 50%;
   object-fit: cover;
   transition: height 0.3s ease, width 0.3s ease;
 }
-.navbar.scrolled .brand img { height: 34px; width: 34px; }
+.navbar.scrolled .brand img { height: 42px; width: 42px; }
 .brand-name {
   font-family: var(--serif);
   font-size: 1.15rem;
@@ -276,13 +276,19 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(var(--bg-rgb), 0.22) 0%, rgba(var(--bg-rgb), 0.32) 55%, var(--bg) 100%);
+  /* Lightened — the photo should stay a little more visible instead
+     of getting washed out, while still fading cleanly into the page
+     background at the very bottom of the section. */
+  background: linear-gradient(180deg, rgba(var(--bg-rgb), 0.12) 0%, rgba(var(--bg-rgb), 0.18) 55%, var(--bg) 100%);
 }
 .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(100deg, rgba(var(--bg-rgb), 0.88) 0%, rgba(var(--bg-rgb), 0.66) 30%, rgba(var(--bg-rgb), 0.28) 55%, rgba(var(--bg-rgb), 0.05) 74%, transparent 88%);
+  /* Lightened from the original heavier "smoke" wash — still dark
+     enough on the left for the hero text to stay readable, but the
+     photo itself shows through noticeably more now. */
+  background: linear-gradient(100deg, rgba(var(--bg-rgb), 0.62) 0%, rgba(var(--bg-rgb), 0.42) 30%, rgba(var(--bg-rgb), 0.2) 55%, rgba(var(--bg-rgb), 0.06) 74%, transparent 88%);
 }
 .hero-content {
   position: relative;

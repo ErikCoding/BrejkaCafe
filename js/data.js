@@ -78,14 +78,12 @@ const DEFAULT_DATA = {
   gallery: [
     { src: "assets/img/interior-gallery.jpg", alt: "Wnętrze Brëjka Café" },
     {
-      src: "https://images.unsplash.com/photo-1750583834656-cfa910e44b22?q=80&w=1000&auto=format&fit=crop",
-      alt: "Nowoczesne, minimalistyczne wnętrze kawiarni",
-      placeholder: true,
+      src: "assets/img/gallery-interior-2.jpg",
+      alt: "Sala Brëjka Café — stoliki i wystrój wnętrza",
     },
     {
-      src: "https://images.unsplash.com/photo-1758900450186-e829f72d25fb?q=80&w=1000&auto=format&fit=crop",
-      alt: "Kawa z latte art",
-      placeholder: true,
+      src: "assets/img/gallery-coffee-croissant.jpg",
+      alt: "Kawa z pianką i kanapka na croissancie w Brëjka Café",
     },
     {
       src: "https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=1000&auto=format&fit=crop",

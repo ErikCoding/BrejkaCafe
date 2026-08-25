@@ -76,6 +76,24 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   }
 });
 
+document.getElementById("restoreDefaultsBtn").addEventListener("click", async () => {
+  const sure = confirm(
+    "To nadpisze WSZYSTKIE zapisane dane (menu, godziny, galerię, itd.) " +
+      "aktualnymi wartościami z kodu strony. Jeśli wprowadzałeś realne zmiany " +
+      "w menu lub godzinach, zostaną one utracone. Kontynuować?"
+  );
+  if (!sure) return;
+  try {
+    workingData = await store.reset();
+    renderCategories();
+    renderHours();
+    toast("Dane domyślne przywrócone ✓ — odśwież stronę główną, aby zobaczyć zmiany.");
+  } catch (err) {
+    console.error(err);
+    toast("⚠ Nie udało się przywrócić danych domyślnych — sprawdź połączenie z Firebase.");
+  }
+});
+
 document.getElementById("logoutBtn").addEventListener("click", () => {
   if (USE_FIREBASE_AUTH) {
     firebase.auth().signOut();
